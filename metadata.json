@@ -1,0 +1,6 @@
+{
+  "name": "HomeOS - First-Year Homeowner Financial & Operating System",
+  "description": "Comprehensive SaaS financial and operating management system for first-year homeowners, featuring real-time calculation engines, local persistence, and holistic TCO review.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #F5F5F2;
+  --brand: #051C2C;
+  --accent: #2251FF;
+  --gray: #888888;
+  --input-bg: #FFFDE7;
+  --positive: #00C853;
+  --negative: #D32F2F;
+
+  /* Aliases for semantic mapping */
+  --color-primary: #051C2C;
+  --color-accent: #2251FF;
+  --color-bg: #F5F5F2;
+  --color-muted: #888888;
+  --color-body-text: #051C2C;
+  --color-positive: #00C853;
+  --color-negative: #D32F2F;
+  --color-surface: #FFFFFF;
+  --color-input-bg: #FFFDE7;
+  --color-border: #E5E5E5;
+
+  --nav-bg: #FFFFFF;
+  --nav-border: #E5E5E5;
+  --nav-text: #051C2C;
+  --nav-text-inactive: #888888;
+
+  --table-header-bg: #FFFFFF;
+  --table-header-sep: #E5E5E5;
+
+  --insight-bg: rgba(5, 28, 44, 0.04);
+  --anomaly-bg: rgba(211, 47, 47, 0.05);
+
+  --font-serif: "EB Garamond", "Georgia", serif;
+  --font-heading: "EB Garamond", "Georgia", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+
+  --tracking-display: -0.025em;
+  --tracking-heading: -0.025em;
+  --tracking-label: 0.06em;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius-pill: 100px;
+
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-nav: 0 1px 0px #E5E5E5;
+
+  --nav-height: 56px;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--brand);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Professional Polish Typography */
+.serif {
+  font-family: var(--font-serif);
+  letter-spacing: -0.025em;
+}
+
+.font-display {
+  font-family: var(--font-serif);
+  letter-spacing: var(--tracking-display);
+}
+
+.font-heading {
+  font-family: var(--font-serif);
+  letter-spacing: var(--tracking-heading);
+}
+
+.header-caps {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--gray);
+}
+
+.font-table-head {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+/* Professional Polish Cards */
+.card,
+.apple-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.card:hover,
+.apple-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.apple-card-static {
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* Data Bars */
+.data-bar-track {
+  background: rgba(5, 28, 44, 0.1);
+  border-radius: 2px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.data-bar-fill {
+  background: var(--accent);
+  border-radius: 2px;
+  height: 6px;
+  transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Insight & Anomaly Blocks */
+.insight-block {
+  border-left: 3px solid var(--accent);
+  background: rgba(5, 28, 44, 0.04);
+  border-radius: 0 6px 6px 0;
+}
+
+.anomaly-block {
+  border-left: 3px solid var(--negative);
+  background: rgba(211, 47, 47, 0.05);
+  border-radius: 0 6px 6px 0;
+}
+
+/* Interactive Matrix & Cells */
+.matrix-cell {
+  transition: all 0.22s ease;
+}
+
+.matrix-cell:hover {
+  transform: scale(1.04);
+  filter: brightness(1.1);
+  cursor: pointer;
+}
+
+.cell-interactive {
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.cell-interactive:hover {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
+/* Input Cell & Fields */
+.input-cell {
+  background-color: var(--input-bg);
+}
+
+.input-editable {
+  background-color: var(--input-bg);
+  border: 1px solid rgba(5, 28, 44, 0.12);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-editable:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(34, 81, 255, 0.15);
+}
+
+/* Badges & Pills */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tab-content-enter {
+  animation: fadeUp 0.25s cubic-bezier(0, 0, 0.2, 1) both;
+}
+
