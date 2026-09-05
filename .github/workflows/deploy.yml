@@ -1,50 +1,53 @@
-name: Deploy HomeOS to GitHub Pages
+name: Deploy HomeOS to GitHub Pages (Branch Deployment)
 
 on:
   push:
     branches:
+      - main
+      - master
       - gh-branch
   workflow_dispatch:
 
+# Permissions required to push compiled assets to the deployment branch
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: 'pages'
+  group: 'pages-deploy'
   cancel-in-progress: true
 
 jobs:
   build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
+      # Removed npm cache setup explicitly to avoid:
+      # "Dependencies lock file is not found in /home/runner/work/. Supported file patterns: package-lock.json,npm-shrinkwrap.json,yarn.lock"
       - name: Setup Node.js Runtime
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # Cache disabled intentionally per project deployment constraints (no lock file requirement)
 
+      # Using npm install instead of npm ci since package-lock.json is not tracked
       - name: Install Project Dependencies
         run: npm install
 
+      # Builds the app with relative asset paths via Vite (base: './')
       - name: Build Production Assets
         run: npm run build
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      # Bypass Jekyll processing on GitHub Pages to prevent asset path masking
+      - name: Add .nojekyll File
+        run: touch ./dist/.nojekyll
 
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+      # Deploy build artifacts to the designated GitHub Pages branch (gh-branch / gh-pages)
+      - name: Deploy to GitHub Pages Branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: './dist'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-branch
+          keep_files: false
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
